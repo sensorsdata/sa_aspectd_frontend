@@ -5,7 +5,9 @@
 // @dart=2.8
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io' hide FileSystemEntity;
+import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:frontend_server/frontend_server.dart' as frontend
@@ -20,6 +22,7 @@ import 'package:frontend_server/frontend_server.dart' as frontend
 import 'package:path/path.dart' as path;
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
+import 'package:path/path.dart';
 import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
 
 
@@ -107,6 +110,112 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 }
 
+///根据 args 配置，获取其中的值
+void resetPackageConfig(List<String> args) {
+  try {
+    if(args==null || args.isEmpty){
+      return;
+    }
+    //获取 packages，然后解析其中的内容，并判断是否存在 aspectd_impl 目录
+    //  /Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_deer/.dart_tool/package_config.json
+    String packagesOption = '';
+    int index = 0;
+    for (index = 0; index < args.length; index++) {
+      if (args[index].endsWith('package_config.json')) {
+        packagesOption = args[index];
+        break;
+      }
+    }
+    if (packagesOption.endsWith('package_config.json')) {
+      File packageFile = File(packagesOption);
+      final bool aspectdImplExists = _checkAspectImplExists(packageFile);
+      if(!aspectdImplExists){
+        return;
+      }
+      bool exists = packageFile.existsSync();
+      if (exists) {
+        const JsonCodec json = JsonCodec();
+        final _jsonUtf8Decoder = json.fuse(utf8).decoder;
+        dynamic jsonObject =
+        _jsonUtf8Decoder.convert(packageFile.readAsBytesSync());
+        List packagesList = jsonObject['packages'];
+        var aspectdMap = <String, String>{
+          'name': 'aspectd',
+          'rootUri': '../../flutter_aspectd',
+          'packageUri': 'lib/',
+          'languageVersion': '2.12'
+        };
+        var aspectImplMap = <String, String>{
+          'name': 'aspectd_impl',
+          'rootUri': '../../aspectd_impl',
+          'packageUri': 'lib/',
+          'languageVersion': '2.12'
+        };
+        packagesList.add(aspectdMap);
+        packagesList.add(aspectImplMap);
+        List<int> outputData = json.fuse(utf8).encode(jsonObject);
+        File packageFileNew =
+        File(packagesOption.replaceAll('.json', '2.json'));
+        if (packageFileNew.existsSync()) {
+          packageFileNew.deleteSync();
+        }
+        packageFileNew.createSync();
+        packageFileNew.writeAsBytesSync(outputData);
+        args.insert(index, packageFileNew.path);
+        args.removeAt(index + 1);
+      }
+    }
+  } catch (error) {
+    print('can not handle aspectd: $error');
+  }
+}
+
+bool _checkAspectImplExists(File packageConfigFile){
+  //获取项目的同级目录
+  Directory projectDirectory = packageConfigFile.parent.parent;
+  Directory directory = projectDirectory.parent;
+  List<FileSystemEntity> fileEntities = directory.listSync();
+  int state = 0;
+  bool isInConfigFile = false;
+  for(int index=0;index<fileEntities.length;index++){
+    final FileSystemEntity file = fileEntities[index];
+    if(file is Directory){
+      String fileName = basename(file.path);
+      if(fileName == 'flutter_aspectd' || fileName == 'aspectd_impl'){
+        state++;
+      }
+      if(fileName == 'aspectd_impl'){
+        isInConfigFile = _checkMultiProjectFile(file, projectDirectory);
+      }
+    }
+  }
+  return state == 2 && isInConfigFile;
+}
+
+bool _checkMultiProjectFile(Directory dir, Directory projectDirectory){
+  final List<FileSystemEntity> fileEntities = dir.listSync();
+  final String projectDirectoryName = basename(projectDirectory.path);
+
+  for(int index=0;index<fileEntities.length;index++){
+    final FileSystemEntity file = fileEntities[index];
+
+    if(file is File){
+      final String fileName = basename(file.path);
+      if(fileName == 'multiproject.config'){
+        final List<String> projects = file.readAsLinesSync();
+        if(projects !=null && projects.isNotEmpty){
+          for(String projectName in projects){
+            if(projectName == projectDirectoryName){
+              return true;
+            }
+          }
+        }
+      }
+    }
+  }
+  return false;
+}
+
 /// Entry point for this module, that creates `_FrontendCompiler` instance and
 /// processes user input.
 /// `compiler` is an optional parameter so it can be replaced with mocked
@@ -126,6 +235,13 @@ Future<int> starter(
     valueHelp: 'dart:ui',
     defaultsTo: const <String>[],
   );
+
+  //重新包装一下 args list
+  final List<String> newList = <String>[];
+  newList.addAll(args);
+  args = newList;
+  resetPackageConfig(args);
+
   try {
     options = frontend.argParser.parse(args);
   } catch (error) {
