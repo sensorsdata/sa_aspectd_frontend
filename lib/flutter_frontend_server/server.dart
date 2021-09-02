@@ -55,7 +55,7 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> recompileDelta({String entryPoint}) async {
+  Future<Null> recompileDelta({String entryPoint}) async { // ignore: prefer_void_to_null
     return _compiler.recompileDelta(entryPoint: entryPoint);
   }
 
@@ -75,7 +75,7 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> compileExpression(
+  Future<Null> compileExpression( // ignore: prefer_void_to_null
       String expression,
       List<String> definitions,
       List<String> typeDefinitions,
@@ -87,7 +87,7 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> compileExpressionToJs(
+  Future<Null> compileExpressionToJs( // ignore: prefer_void_to_null
       String libraryUri,
       int line,
       int column,
