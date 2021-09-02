@@ -141,13 +141,13 @@ void resetPackageConfig(List<String> args) {
         List packagesList = jsonObject['packages'];
         var aspectdMap = <String, String>{
           'name': 'aspectd',
-          'rootUri': '../../flutter_aspectd',
+          'rootUri': '../../sa_flutter_aspectd',
           'packageUri': 'lib/',
           'languageVersion': '2.12'
         };
         var aspectImplMap = <String, String>{
-          'name': 'aspectd_impl',
-          'rootUri': '../../aspectd_impl',
+          'name': 'sa_aspectd_impl',
+          'rootUri': '../../sa_aspectd_impl',
           'packageUri': 'lib/',
           'languageVersion': '2.12'
         };
@@ -181,10 +181,10 @@ bool _checkAspectImplExists(File packageConfigFile){
     final FileSystemEntity file = fileEntities[index];
     if(file is Directory){
       String fileName = basename(file.path);
-      if(fileName == 'flutter_aspectd' || fileName == 'aspectd_impl'){
+      if(fileName == 'sa_flutter_aspectd' || fileName == 'sa_aspectd_impl'){
         state++;
       }
-      if(fileName == 'aspectd_impl'){
+      if(fileName == 'sa_aspectd_impl'){
         isInConfigFile = _checkMultiProjectFile(file, projectDirectory);
       }
     }
