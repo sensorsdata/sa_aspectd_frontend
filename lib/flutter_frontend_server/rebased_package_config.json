@@ -633,7 +633,7 @@
     },
     {
       "name": "aspectd",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd",
+      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/sa_flutter_aspectd",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
