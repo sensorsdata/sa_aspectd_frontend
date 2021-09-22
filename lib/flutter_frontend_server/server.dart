@@ -50,6 +50,9 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
         FlutterTarget.flutterProgramTransformers;
     if (!transformers.contains(aspectdAopTransformer)) {
       transformers.add(aspectdAopTransformer);
+      if(options.rest.isNotEmpty){
+        aspectdAopTransformer.updateEntryPoint(options.rest[0]);
+      }
     }
     return _compiler.compile(filename, options, generator: generator);
   }
