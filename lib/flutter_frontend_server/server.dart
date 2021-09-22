@@ -12,45 +12,39 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:frontend_server/frontend_server.dart' as frontend
     show
-        FrontendCompiler,
-        CompilerInterface,
-        listenAndCompile,
-        argParser,
-        usage,
-        ProgramTransformer,
-        ToStringTransformer;
+    FrontendCompiler,
+    CompilerInterface,
+    listenAndCompile,
+    argParser,
+    usage;
 import 'package:path/path.dart' as path;
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
 import 'package:path/path.dart';
 import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
 
-
-/// Wrapper around [FrontendCompiler] that adds [widgetCreatorTracker] kernel
-/// transformation to the compilation.
+/// flutter engine 已删除此类，此处保留此类是为了做 adapter
 class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   final frontend.CompilerInterface _compiler;
-
   final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
+
   _FlutterFrontendCompiler(StringSink output,
       {bool unsafePackageSerialization,
-      bool useDebuggerModuleNames,
-      bool emitDebugMetadata,
-      frontend.ProgramTransformer transformer})
+        bool useDebuggerModuleNames,
+        bool emitDebugMetadata})
       : _compiler = frontend.FrontendCompiler(output,
-            transformer: transformer,
-            useDebuggerModuleNames: useDebuggerModuleNames,
-            emitDebugMetadata: emitDebugMetadata,
-            unsafePackageSerialization: unsafePackageSerialization);
+      useDebuggerModuleNames: useDebuggerModuleNames,
+      emitDebugMetadata: emitDebugMetadata,
+      unsafePackageSerialization: unsafePackageSerialization);
 
   @override
   Future<bool> compile(String filename, ArgResults options,
       {IncrementalCompiler generator}) async {
-    List<FlutterProgramTransformer> transformers =
-        FlutterTarget.flutterProgramTransformers;
-    if (!transformers.contains(aspectdAopTransformer)) {
-      transformers.add(aspectdAopTransformer);
-    }
+    // List<FlutterProgramTransformer> transformers =
+    //     FlutterTarget.flutterProgramTransformers;
+    // if (!transformers.contains(aspectdAopTransformer)) {
+    //   transformers.add(aspectdAopTransformer);
+    // }
     return _compiler.compile(filename, options, generator: generator);
   }
 
@@ -216,25 +210,17 @@ bool _checkMultiProjectFile(Directory dir, Directory projectDirectory){
   return false;
 }
 
-/// Entry point for this module, that creates `_FrontendCompiler` instance and
+/// Entry point for this module, that creates `FrontendCompiler` instance and
 /// processes user input.
 /// `compiler` is an optional parameter so it can be replaced with mocked
 /// version for testing.
 Future<int> starter(
-  List<String> args, {
-  frontend.CompilerInterface compiler,
-  Stream<List<int>> input,
-  StringSink output,
-  frontend.ProgramTransformer transformer,
-}) async {
+    List<String> args, {
+      frontend.CompilerInterface compiler,
+      Stream<List<int>> input,
+      StringSink output,
+    }) async {
   ArgResults options;
-  frontend.argParser.addMultiOption(
-    'delete-tostring-package-uri',
-    help: 'Replaces implementations of `toString` with `super.toString()` for '
-          'specified package',
-    valueHelp: 'dart:ui',
-    defaultsTo: const <String>[],
-  );
 
   //重新包装一下 args list
   final List<String> newList = <String>[];
@@ -250,8 +236,6 @@ Future<int> starter(
     return 1;
   }
 
-  final Set<String> deleteToStringPackageUris = (options['delete-tostring-package-uri'] as List<String>).toSet();
-
   if (options['train'] as bool) {
     if (!options.rest.isNotEmpty) {
       throw Exception('Must specify input.dart');
@@ -260,7 +244,7 @@ Future<int> starter(
     final String input = options.rest[0];
     final String sdkRoot = options['sdk-root'] as String;
     final Directory temp =
-        Directory.systemTemp.createTempSync('train_frontend_server');
+    Directory.systemTemp.createTempSync('train_frontend_server');
     try {
       for (int i = 0; i < 3; i++) {
         final String outputTrainingDill = path.join(temp.path, 'app.dill');
@@ -272,10 +256,7 @@ Future<int> starter(
           '--track-widget-creation',
           '--enable-asserts',
         ]);
-        compiler ??= _FlutterFrontendCompiler(
-          output,
-          transformer: frontend.ToStringTransformer(null, deleteToStringPackageUris),
-        );
+        compiler ??= _FlutterFrontendCompiler(output);
 
         await compiler.compile(input, options);
         compiler.acceptLastDelta();
@@ -294,11 +275,10 @@ Future<int> starter(
   }
 
   compiler ??= _FlutterFrontendCompiler(output,
-      transformer: frontend.ToStringTransformer(transformer, deleteToStringPackageUris),
       useDebuggerModuleNames: options['debugger-module-names'] as bool,
       emitDebugMetadata: options['experimental-emit-debug-metadata'] as bool,
       unsafePackageSerialization:
-          options['unsafe-package-serialization'] as bool);
+      options['unsafe-package-serialization'] as bool);
 
   if (options.rest.isNotEmpty) {
     return await compiler.compile(options.rest[0], options) ? 0 : 254;
