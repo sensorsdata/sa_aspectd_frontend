@@ -21,12 +21,12 @@ import 'package:path/path.dart' as path;
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
 import 'package:path/path.dart';
-import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
+// import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
 
 /// flutter engine 已删除此类，此处保留此类是为了做 adapter
 class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   final frontend.CompilerInterface _compiler;
-  final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
+  // final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
 
   _FlutterFrontendCompiler(StringSink output,
       {bool unsafePackageSerialization,
