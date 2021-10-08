@@ -14,8 +14,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-#  aspectd:
-#    path: ../sa_flutter_aspectd
+  aspectd:
+    path: ../sa_flutter_aspectd
 
 dependency_overrides:
   kernel:

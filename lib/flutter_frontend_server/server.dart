@@ -18,15 +18,16 @@ import 'package:frontend_server/frontend_server.dart' as frontend
     argParser,
     usage;
 import 'package:path/path.dart' as path;
+import 'package:sa_aspectd_frontend/flutter_frontend_server/custom_transformer.dart';
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
 import 'package:path/path.dart';
-// import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
+import 'package:aspectd/src/transformer/aop/aop_transformer.dart';
 
 /// flutter engine 已删除此类，此处保留此类是为了做 adapter
 class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   final frontend.CompilerInterface _compiler;
-  // final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
+  final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
 
   _FlutterFrontendCompiler(StringSink output,
       {bool unsafePackageSerialization,
@@ -40,11 +41,14 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   @override
   Future<bool> compile(String filename, ArgResults options,
       {IncrementalCompiler generator}) async {
-    // List<FlutterProgramTransformer> transformers =
-    //     FlutterTarget.flutterProgramTransformers;
-    // if (!transformers.contains(aspectdAopTransformer)) {
-    //   transformers.add(aspectdAopTransformer);
-    // }
+    List<FlutterProgramTransformer> transformers =
+        FlutterTarget.flutterProgramTransformers;
+    if (!transformers.contains(aspectdAopTransformer)) {
+      transformers.add(aspectdAopTransformer);
+    }
+
+    FlutterTarget.flutterProgramTransformers.add(MyTransformer());
+
     return _compiler.compile(filename, options, generator: generator);
   }
 
