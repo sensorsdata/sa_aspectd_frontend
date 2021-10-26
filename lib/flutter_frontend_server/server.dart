@@ -18,7 +18,6 @@ import 'package:frontend_server/frontend_server.dart' as frontend
     argParser,
     usage;
 import 'package:path/path.dart' as path;
-import 'package:sa_aspectd_frontend/flutter_frontend_server/custom_transformer.dart';
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
 import 'package:path/path.dart';
@@ -45,9 +44,12 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
         FlutterTarget.flutterProgramTransformers;
     if (!transformers.contains(aspectdAopTransformer)) {
       transformers.add(aspectdAopTransformer);
+      if(options.rest.isNotEmpty){
+        aspectdAopTransformer.updateEntryPoint(options.rest[0]);
+      }
     }
 
-    FlutterTarget.flutterProgramTransformers.add(MyTransformer());
+    //FlutterTarget.flutterProgramTransformers.add(MyTransformer());
 
     return _compiler.compile(filename, options, generator: generator);
   }
