@@ -74,16 +74,22 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
     _compiler.invalidate(uri);
   }
 
+  // @override
+  // Future<Null> compileExpression( // ignore: prefer_void_to_null
+  //     String expression,
+  //     List<String> definitions,
+  //     List<String> typeDefinitions,
+  //     String libraryUri,
+  //     String klass,
+  //     bool isStatic) {
+  //   return _compiler.compileExpression(
+  //       expression, definitions, typeDefinitions, libraryUri, klass, isStatic);
+  // }
+
   @override
-  Future<Null> compileExpression( // ignore: prefer_void_to_null
-      String expression,
-      List<String> definitions,
-      List<String> typeDefinitions,
-      String libraryUri,
-      String klass,
-      bool isStatic) {
+  Future<Null> compileExpression(String expression, List<String> definitions, List<String> typeDefinitions, String libraryUri, String klass, String method, bool isStatic) {
     return _compiler.compileExpression(
-        expression, definitions, typeDefinitions, libraryUri, klass, isStatic);
+        expression, definitions, typeDefinitions, libraryUri, klass, method, isStatic);
   }
 
   @override
