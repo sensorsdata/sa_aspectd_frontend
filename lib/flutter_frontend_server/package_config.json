@@ -35,7 +35,7 @@
       "name": "bazel_worker",
       "rootUri": "../../../third_party/dart/third_party/pkg/bazel_worker",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "build_integration",
@@ -89,7 +89,7 @@
       "name": "dev_compiler",
       "rootUri": "../../../third_party/dart/pkg/dev_compiler",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "expect",
@@ -227,7 +227,7 @@
       "name": "stream_channel",
       "rootUri": "../../../third_party/dart/third_party/pkg/stream_channel",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
@@ -257,7 +257,7 @@
       "name": "vm",
       "rootUri": "../../../third_party/dart/pkg/vm",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "yaml",
@@ -272,7 +272,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2022-01-24T07:52:12.592629Z",
+  "generated": "2022-02-07T07:41:00.284604Z",
   "generator": "pub",
-  "generatorVersion": "2.15.0-82.0.dev"
+  "generatorVersion": "2.15.1"
 }

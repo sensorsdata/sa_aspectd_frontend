@@ -35,7 +35,7 @@
       "name": "bazel_worker",
       "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "build_integration",
@@ -89,7 +89,7 @@
       "name": "dev_compiler",
       "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/dev_compiler",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "expect",
@@ -227,7 +227,7 @@
       "name": "stream_channel",
       "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
@@ -257,7 +257,7 @@
       "name": "vm",
       "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/vm",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "yaml",
@@ -278,7 +278,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-15T08:18:34.805922Z",
+  "generated": "2022-02-07T07:41:00.284604Z",
   "generator": "pub",
-  "generatorVersion": "2.15.0-82.0.dev"
+  "generatorVersion": "2.15.1"
 }
