@@ -17,18 +17,18 @@ dev_dependencies:
   aspectd:
     path: ../sa_flutter_aspectd
 
-dependency_overrides:
-  kernel:
-    path: ../flutter_aspectd_dart_sdk/pkg/kernel
-  meta:
-    path: ../flutter_aspectd_dart_sdk/pkg/meta
-  frontend_server:
-    path: ../flutter_aspectd_dart_sdk/pkg/frontend_server
-  front_end:
-    path: ../flutter_aspectd_dart_sdk/pkg/front_end
-  dev_compiler:
-    path: ../flutter_aspectd_dart_sdk/pkg/dev_compiler
-  package_config: any
+#dependency_overrides:
+#  kernel:
+#    path: ../flutter_aspectd_dart_sdk/pkg/kernel
+#  meta:
+#    path: ../flutter_aspectd_dart_sdk/pkg/meta
+#  frontend_server:
+#    path: ../flutter_aspectd_dart_sdk/pkg/frontend_server
+#  front_end:
+#    path: ../flutter_aspectd_dart_sdk/pkg/front_end
+#  dev_compiler:
+#    path: ../flutter_aspectd_dart_sdk/pkg/dev_compiler
+#  package_config: any
 
 
 # For information on the generic Dart part of this file, see the
