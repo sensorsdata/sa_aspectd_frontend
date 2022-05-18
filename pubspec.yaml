@@ -28,6 +28,8 @@ dev_dependencies:
 #    path: ../flutter_aspectd_dart_sdk/pkg/front_end
 #  dev_compiler:
 #    path: ../flutter_aspectd_dart_sdk/pkg/dev_compiler
+#  _fe_analyzer_shared:
+#    path: ../flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared
 #  package_config: any
 
 

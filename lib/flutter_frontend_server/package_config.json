@@ -101,7 +101,7 @@
       "name": "fixnum",
       "rootUri": "../../../third_party/dart/third_party/pkg/fixnum",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "front_end",
@@ -113,7 +113,7 @@
       "name": "frontend_server",
       "rootUri": "../../../third_party/dart/pkg/frontend_server",
       "packageUri": "lib/",
-      "languageVersion": "2.7"
+      "languageVersion": "2.15"
     },
     {
       "name": "http_parser",
@@ -197,11 +197,17 @@
       "name": "shelf",
       "rootUri": "../../../third_party/dart/third_party/pkg/shelf",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "shelf_static",
       "rootUri": "../../../third_party/dart/third_party/pkg/shelf_static",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "smith",
+      "rootUri": "../../../third_party/dart/pkg/smith",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -215,7 +221,7 @@
       "name": "source_span",
       "rootUri": "../../../third_party/dart/third_party/pkg/source_span",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
@@ -233,13 +239,13 @@
       "name": "string_scanner",
       "rootUri": "../../../third_party/dart/third_party/pkg/string_scanner",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
       "rootUri": "../../../third_party/dart/third_party/pkg/term_glyph",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
@@ -272,7 +278,7 @@
       "languageVersion": "2.2"
     }
   ],
-  "generated": "2022-04-27T07:34:38.246656Z",
+  "generated": "2022-05-17T03:54:23.759921Z",
   "generator": "pub",
-  "generatorVersion": "2.15.1"
+  "generatorVersion": "2.16.2"
 }
