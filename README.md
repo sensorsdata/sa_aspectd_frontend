@@ -19,9 +19,9 @@ SensorsAnalytics SDK 是国内第一家开源商用版用户行为采集 SDK，�
 请参考神策官网 [Flutter 全埋点 SDK 集成文档](https://manual.sensorsdata.cn/sa/latest/flutter-76841017.html)。
 
 ## 讨论  
-| 扫码加入 Flutter 埋点讨论群（备注 AspectD） |
+| 扫码加入 Flutter 埋点专题讨论群|
 | ------ |
-![ 微信讨论群 ](https://opensource.sensorsdata.cn/wp-content/uploads/ContentCommonPic_2.png) |
+![ 微信讨论群 ](https://user-images.githubusercontent.com/45255699/178633580-5be07468-3b7d-49c8-819d-6c36d0a1c379.png)|
 
 ## 公众号  
 
