@@ -3,139 +3,139 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "_js_interop_checks",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/_js_interop_checks",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/_js_interop_checks",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/args",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/args",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "async",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/async",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/async",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "async_helper",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/async_helper",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/async_helper",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "bazel_worker",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_integration",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/build_integration",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/build_integration",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "charcode",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/charcode",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/charcode",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "cli_util",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/cli_util",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/cli_util",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/collection",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/collection",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "compiler",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/compiler",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/compiler",
       "packageUri": "lib/",
       "languageVersion": "2.6"
     },
     {
       "name": "convert",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/convert",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/convert",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "crypto",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/crypto",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/crypto",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "dart2js_info",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/dart2js_info",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/dart2js_info",
       "packageUri": "lib/",
       "languageVersion": "2.11"
     },
     {
       "name": "dev_compiler",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/dev_compiler",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/dev_compiler",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "expect",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/expect",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/expect",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "fixnum",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/fixnum",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/fixnum",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "front_end",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/front_end",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/front_end",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
     {
       "name": "frontend_server",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/frontend_server",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/frontend_server",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/http_parser",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/http_parser",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "js_ast",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/js_ast",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/js_ast",
       "packageUri": "lib/",
       "languageVersion": "2.10"
     },
     {
       "name": "js_runtime",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/js_runtime",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/js_runtime",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "kernel",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/kernel",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/kernel",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -147,127 +147,127 @@
     },
     {
       "name": "logging",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/logging",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/logging",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "matcher",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/matcher",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/matcher",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "meta",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/meta",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/meta",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "mime",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/mime",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/mime",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "package_config",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg_tested/package_config",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg_tested/package_config",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/path",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/path",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "pedantic",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/pedantic",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/pedantic",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "protobuf",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/protobuf/protobuf",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/protobuf/protobuf",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "shelf",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/shelf",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/shelf",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
       "name": "shelf_static",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/shelf_static",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/shelf_static",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "smith",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/smith",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/smith",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_maps",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/source_maps",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/source_maps",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_span",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/source_span",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/source_span",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/stack_trace",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/stack_trace",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/string_scanner",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/string_scanner",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/term_glyph",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/term_glyph",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/typed_data",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/typed_data",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "usage",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/usage",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/usage",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "vm",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/pkg/vm",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/vm",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "yaml",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_aspectd_dart_sdk/third_party/pkg/yaml",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/yaml",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -279,12 +279,12 @@
     },
     {
       "name": "aspectd",
-      "rootUri": "file:///Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/sa_flutter_aspectd",
+      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/sa_flutter_aspectd",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-05-17T03:54:23.759921Z",
+  "generated": "2022-08-29T09:13:35.826735Z",
   "generator": "pub",
   "generatorVersion": "2.16.2"
 }
