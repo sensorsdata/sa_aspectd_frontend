@@ -42,7 +42,9 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
       {IncrementalCompiler generator}) async {
     List<FlutterProgramTransformer> transformers =
         FlutterTarget.flutterProgramTransformers;
+    print("====11111===compile==server.dart");
     if (!transformers.contains(aspectdAopTransformer)) {
+      print("====2222===compile==server.dart");
       transformers.add(aspectdAopTransformer);
       if(options.rest.isNotEmpty){
         aspectdAopTransformer.updateEntryPoint(options.rest[0]);
@@ -109,6 +111,7 @@ void resetPackageConfig(List<String> args) {
     if(args==null || args.isEmpty){
       return;
     }
+    print("args====${args.join("=====")}");
     //获取 packages，然后解析其中的内容，并判断是否存在 aspectd_impl 目录
     //  /Users/zhangwei/Documents/work/flutter_workspace/flutter_deer_autotrack/flutter_deer/.dart_tool/package_config.json
     String packagesOption = '';
@@ -144,6 +147,7 @@ void resetPackageConfig(List<String> args) {
           'packageUri': 'lib/',
           'languageVersion': '2.12'
         };
+        print("server.dart====add dependency======");
         packagesList.add(aspectdMap);
         packagesList.add(aspectImplMap);
         List<int> outputData = json.fuse(utf8).encode(jsonObject);
@@ -156,11 +160,21 @@ void resetPackageConfig(List<String> args) {
         packageFileNew.writeAsBytesSync(outputData);
         args.insert(index, packageFileNew.path);
         args.removeAt(index + 1);
+
+
+
+        // int lastIndex = args.lastIndexWhere((element) => element.startsWith("--"));
+        // args.insert(lastIndex, "--source");
+        // args.insert(lastIndex+1, "package:sa_aspectd_impl/aspectd_impl.dart");
+
       }
     }
+
+    print("args222====${args.join("=====")}");
   } catch (error) {
     print('can not handle aspectd: $error');
   }
+
 }
 
 bool _checkAspectImplExists(File packageConfigFile){
@@ -224,6 +238,8 @@ Future<int> starter(
   //重新包装一下 args list
   final List<String> newList = <String>[];
   newList.addAll(args);
+  print("starter args==============");
+  print(args.join("   "));
   args = newList;
   resetPackageConfig(args);
 

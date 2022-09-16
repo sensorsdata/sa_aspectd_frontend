@@ -30,7 +30,22 @@ dependency_overrides:
     path: ../flutter_aspectd_dart_sdk/pkg/dev_compiler
   _fe_analyzer_shared:
     path: ../flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared
+  js_shared:
+    path: ../flutter_aspectd_dart_sdk/pkg/js_shared
+  build_integration:
+    path: ../flutter_aspectd_dart_sdk/pkg/build_integration
+  _js_interop_checks:
+    path: ../flutter_aspectd_dart_sdk/pkg/_js_interop_checks
   package_config: any
+  compiler:
+    path: ../flutter_aspectd_dart_sdk/pkg/compiler
+  js_runtime:
+    path: ../flutter_aspectd_dart_sdk/pkg/js_runtime
+  js_ast:
+    path: ../flutter_aspectd_dart_sdk/pkg/js_ast
+  vm:
+    path: ../flutter_aspectd_dart_sdk/pkg/vm
+
 
 
 # For information on the generic Dart part of this file, see the

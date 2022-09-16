@@ -3,139 +3,127 @@
   "packages": [
     {
       "name": "_fe_analyzer_shared",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/_fe_analyzer_shared",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "_js_interop_checks",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/_js_interop_checks",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/_js_interop_checks",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "args",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/args",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/args",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "async",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/async",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/async",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "async_helper",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/async_helper",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/async_helper",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "bazel_worker",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "build_integration",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/build_integration",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "charcode",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/charcode",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "cli_util",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/cli_util",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/build_integration",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "collection",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/collection",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/collection",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "compiler",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/compiler",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/compiler",
       "packageUri": "lib/",
-      "languageVersion": "2.6"
-    },
-    {
-      "name": "convert",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/convert",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.16"
     },
     {
       "name": "crypto",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/crypto",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/crypto",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "dart2js_info",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/dart2js_info",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/dart2js_info",
       "packageUri": "lib/",
-      "languageVersion": "2.11"
+      "languageVersion": "2.16"
     },
     {
       "name": "dev_compiler",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/dev_compiler",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/dev_compiler",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "expect",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/expect",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/expect",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "fixnum",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/fixnum",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/fixnum",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "front_end",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/front_end",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/front_end",
       "packageUri": "lib/",
       "languageVersion": "2.13"
     },
     {
       "name": "frontend_server",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/frontend_server",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/frontend_server",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "http_parser",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/http_parser",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/http_parser",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "js_ast",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/js_ast",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/js_ast",
       "packageUri": "lib/",
-      "languageVersion": "2.10"
+      "languageVersion": "2.16"
     },
     {
       "name": "js_runtime",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/js_runtime",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/js_runtime",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "js_shared",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/js_shared",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "kernel",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/kernel",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/kernel",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -146,128 +134,104 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "logging",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/logging",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "matcher",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/matcher",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "meta",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/meta",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "mime",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/mime",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/meta",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "package_config",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg_tested/package_config",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/package_config",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "path",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/path",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "pedantic",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/pedantic",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/path",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "protobuf",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/protobuf/protobuf",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/protobuf/protobuf",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "shelf",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/shelf",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/shelf/pkgs/shelf",
       "packageUri": "lib/",
       "languageVersion": "2.16"
     },
     {
-      "name": "shelf_static",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/shelf_static",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "smith",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/smith",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/smith",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_maps",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/source_maps",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/source_maps",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "source_span",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/source_span",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/source_span",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "stack_trace",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/stack_trace",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/stack_trace",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "stream_channel",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
       "packageUri": "lib/",
       "languageVersion": "2.14"
     },
     {
       "name": "string_scanner",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/string_scanner",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/string_scanner",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "term_glyph",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/term_glyph",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/term_glyph",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "typed_data",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/typed_data",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/typed_data",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
     {
       "name": "usage",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/usage",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/usage",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.15"
     },
     {
       "name": "vm",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/pkg/vm",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/vm",
+      "packageUri": "lib/",
+      "languageVersion": "2.15"
+    },
+    {
+      "name": "vm_service",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/vm_service",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
       "name": "yaml",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/flutter_aspectd_dart_sdk/third_party/pkg/yaml",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/yaml",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -279,12 +243,12 @@
     },
     {
       "name": "aspectd",
-      "rootUri": "file:////Users/sensorsdata/github/flutter-visual/sa_flutter_aspectd",
+      "rootUri": "../../../sa_flutter_aspectd",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2022-08-29T09:13:35.826735Z",
+  "generated": "2022-09-09T02:43:17.888535Z",
   "generator": "pub",
-  "generatorVersion": "2.16.2"
+  "generatorVersion": "2.17.0"
 }
