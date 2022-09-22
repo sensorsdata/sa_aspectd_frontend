@@ -240,12 +240,6 @@
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "2.2"
-    },
-    {
-      "name": "aspectd",
-      "rootUri": "../../../sa_flutter_aspectd",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
     }
   ],
   "generated": "2022-09-09T02:43:17.888535Z",
