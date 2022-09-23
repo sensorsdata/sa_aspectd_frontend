@@ -11,8 +11,8 @@ import 'package:meta/meta.dart';
 import 'package:path/path.dart';
 // Parameter name used to track were widget constructor calls were made from.
 //
-// The parameter name contains a randomly generated hex string to avoid collision
-// with user generated parameters.
+// The parameter name contains a randomly generated hex string to avoid
+// collision with user generated parameters.
 const String _creationLocationParameterName =
     r'$sacreationLocationd_0dea112b090073317d5';
 
@@ -161,26 +161,16 @@ class _WidgetCallSiteTransformer extends Transformer {
   ConstructorInvocation _constructLocation(
       Location location, {
         String name,
-        ListLiteral parameterLocations,
-        bool showFile: true,
       }) {
     final List<NamedExpression> arguments = <NamedExpression>[
+      new NamedExpression('file', new StringLiteral(location.file.toString())),
       new NamedExpression('line', new IntLiteral(location.line)),
       new NamedExpression('column', new IntLiteral(location.column)),
       new NamedExpression('rootUrl', new StringLiteral(_rootUrl)),
-      new NamedExpression('importUri', new StringLiteral(_currentLibrary.importUri.toString()))
+      new NamedExpression('importUri', new StringLiteral(_currentLibrary.importUri.toString())),
+      if (name != null) new NamedExpression('name', new StringLiteral(name))
     ];
-    if (showFile) {
-      arguments.add(new NamedExpression(
-          'file', new StringLiteral(location.file.toString())));
-    }
-    if (name != null) {
-      arguments.add(new NamedExpression('name', new StringLiteral(name)));
-    }
-    if (parameterLocations != null) {
-      arguments
-          .add(new NamedExpression('parameterLocations', parameterLocations));
-    }
+
     return new ConstructorInvocation(
       _locationClass.constructors.first,
       new Arguments(<Expression>[], named: arguments),
@@ -196,7 +186,8 @@ class _WidgetCallSiteTransformer extends Transformer {
       _currentFactory = null;
       return node;
     }
-    return defaultTreeNode(node) as Procedure;
+    node.transformChildren(this);
+    return node;
   }
 
   bool _isSubclassOfWidget(Class clazz) {
@@ -247,8 +238,11 @@ class _WidgetCallSiteTransformer extends Transformer {
   }
 
   Expression _computeLocation(
-      InvocationExpression node, FunctionNode function, Class constructedClass,
-      {bool isConst: false}) {
+      InvocationExpression node,
+      FunctionNode function,
+      Class constructedClass, {
+        bool isConst: false,
+      }) {
     // For factory constructors we need to use the location specified as an
     // argument to the factory constructor rather than the location
     if (_currentFactory != null &&
@@ -267,35 +261,9 @@ class _WidgetCallSiteTransformer extends Transformer {
       }
     }
 
-    final Arguments arguments = node.arguments;
-    final Location location = node.location;
-    final List<ConstructorInvocation> parameterLocations =
-    <ConstructorInvocation>[];
-    final List<VariableDeclaration> parameters = function.positionalParameters;
-    for (int i = 0; i < arguments.positional.length; ++i) {
-      final Expression expression = arguments.positional[i];
-      final VariableDeclaration parameter = parameters[i];
-      parameterLocations.add(_constructLocation(
-        expression.location,
-        name: parameter.name,
-        showFile: false,
-      ));
-    }
-    for (NamedExpression expression in arguments.named) {
-      parameterLocations.add(_constructLocation(
-        expression.location,
-        name: expression.name,
-        showFile: false,
-      ));
-    }
     return _constructLocation(
-      location,
-      parameterLocations: new ListLiteral(
-        parameterLocations,
-        typeArgument:
-        new InterfaceType(_locationClass, _currentLibrary.nonNullable),
-        isConst: true,
-      ),
+      node.location,
+      name: constructedClass.name,
     );
   }
 
@@ -321,6 +289,7 @@ class _WidgetCallSiteTransformer extends Transformer {
 /// on the base widget class and flowed through the constructors using a named
 /// parameter.
 class WidgetCreatorTracker {
+  bool _foundClasses = false;
   Class _widgetClass;
   Class _locationClass;
 
@@ -357,14 +326,18 @@ class WidgetCreatorTracker {
   void _resolveFlutterClasses(Iterable<Library> libraries) {
     // If the Widget or Debug location classes have been updated we need to get
     // the latest version
+    bool foundWidgetClass = false;
+    bool foundHasCreationLocationClass = false;
+    bool foundLocationClass = false;
     for (Library library in libraries) {
       final Uri importUri = library.importUri;
-      if (importUri != null && importUri.scheme == 'package') {
-        if (importUri.path == 'flutter/src/widgets/framework.dart' ||
-            importUri.path == 'flutter_web/src/widgets/framework.dart') {
+      // ignore: unnecessary_null_comparison
+      if (importUri != null && importUri.isScheme('package')) {
+        if (importUri.path == 'flutter/src/widgets/framework.dart') {
           for (Class class_ in library.classes) {
             if (class_.name == 'Widget') {
               _widgetClass = class_;
+              foundWidgetClass = true;
             }
           }
         } else {
@@ -398,8 +371,10 @@ class WidgetCreatorTracker {
             for (Class class_ in library.classes) {
               if (class_.name == '_SAHasCreationLocation') {
                 _hasCreationLocationClass = class_;
+                foundHasCreationLocationClass = true;
               } else if (class_.name == '_SALocation') {
                 _locationClass = class_;
+                foundLocationClass = true;
               }
             }
           }
@@ -407,6 +382,8 @@ class WidgetCreatorTracker {
         }
       }
     }
+    _foundClasses =
+        foundWidgetClass && foundHasCreationLocationClass && foundLocationClass;
   }
 
   /// Modify [clazz] to add a field named [_locationFieldName] that is the
@@ -434,8 +411,11 @@ class WidgetCreatorTracker {
         type:
         new InterfaceType(_locationClass, clazz.enclosingLibrary.nullable),
         isFinal: true,
-        getterReference: clazz.reference.canonicalName
+        fieldReference: clazz.reference.canonicalName
             ?.getChildFromFieldWithName(fieldName)
+            .reference,
+        getterReference: clazz.reference.canonicalName
+            ?.getChildFromFieldGetterWithName(fieldName)
             .reference,
         fileUri: clazz.fileUri);
     clazz.addField(locationField);
@@ -522,9 +502,7 @@ class WidgetCreatorTracker {
     print("track widget custom_location===transfrom");
     _resolveFlutterClasses(module.libraries);
 
-    if (_widgetClass == null ||
-        _hasCreationLocationClass == null ||
-        _locationClass == null) {
+    if (!_foundClasses) {
       // This application doesn't actually use the package:flutter library.
       return;
     }
@@ -552,9 +530,6 @@ class WidgetCreatorTracker {
         rootUrl: _rootUrl);
 
     for (Library library in libraries) {
-      // if(!library.fileUri.path.startsWith(_rootUrl)){
-      //   continue;
-      // }
       callsiteTransformer.enterLibrary(library);
       library.transformChildren(callsiteTransformer);
       callsiteTransformer.exitLibrary();
