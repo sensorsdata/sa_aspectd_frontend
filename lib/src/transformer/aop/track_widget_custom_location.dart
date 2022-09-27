@@ -411,12 +411,8 @@ class WidgetCreatorTracker {
         type:
         new InterfaceType(_locationClass, clazz.enclosingLibrary.nullable),
         isFinal: true,
-        fieldReference: clazz.reference.canonicalName
-            ?.getChildFromFieldWithName(fieldName)
-            .reference,
-        getterReference: clazz.reference.canonicalName
-            ?.getChildFromFieldGetterWithName(fieldName)
-            .reference,
+        fieldReference: clazz.reference.canonicalName?.getChildFromFieldWithName(fieldName)?.reference,
+        getterReference: clazz.reference.canonicalName?.getChildFromFieldGetterWithName(fieldName)?.reference,
         fileUri: clazz.fileUri);
     clazz.addField(locationField);
 

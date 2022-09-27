@@ -34,18 +34,10 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
   void transform(Component component) {
     print("AspectdAopTransformer====start transform");
     prepareAopItemInfo(component);
-    // if (callInfoList.isNotEmpty) {
-    //   component.transformChildren(
-    //       AspectdAopCallVisitor(callInfoList, concatUriToSource, libraryMap));
-    // }
     if (executeInfoList.isNotEmpty) {
       print("AspectdAopTransformer====start transform==execute====${executeInfoList.length}");
       component.visitChildren(AspectdAopExecuteVisitor(executeInfoList));
     }
-    // if (injectInfoList.isNotEmpty) {
-    //   component.visitChildren(
-    //       AspectdAopInjectVisitor(injectInfoList, concatUriToSource));
-    // }
     tracker.transform(component, component.libraries);
   }
 
@@ -174,7 +166,6 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
   //查找 AOP 实现类，例如 SensorsAnayliticsAOP 这个类，然后查找这个类中的所有方法
   void _resolveAopProcedures(Iterable<Library> libraries) {
     for (Library library in libraries) {
-      print("library=====${library.importUri.toString()}====${library.fileUri.toString()}");
       final List<Class> classes = library.classes;
       for (Class cls in classes) {
         final bool aspectdEnabled = AopUtils.checkIfClassEnableAspectd(cls.annotations);
@@ -188,7 +179,6 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
           }
           final AopItemInfo aopItemInfo = _processAopMember(member); //此处需要注意 aopMember 字段，例如 _incrementCounterTest 方法对应的 Prodedure 对象
           if (aopItemInfo != null) {
-            print("=====aop_transformer.dart=====resolveAopProcedure");
             aopItemInfoList.add(aopItemInfo);
           }
         }
@@ -246,6 +236,7 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
             methodName = methodName.substring(AopUtils.kAopAnnotationStaticMethodPrefix.length);
             isStatic = true;
           }
+          member.annotations.clear();
           return AopItemInfo(
               importUri: importUri,
               clsName: clsName,
@@ -292,6 +283,7 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
           methodName = methodName.substring(AopUtils.kAopAnnotationStaticMethodPrefix.length);
           isStatic = true;
         }
+        member.annotations.clear();
         return AopItemInfo(
             importUri: importUri,
             clsName: clsName,

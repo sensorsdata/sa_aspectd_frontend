@@ -55,7 +55,11 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> recompileDelta({String entryPoint}) async { // ignore: prefer_void_to_null
+  Future<Null> recompileDelta({String entryPoint}) async {
+    List<FlutterProgramTransformer> transformers =
+        FlutterTarget.flutterProgramTransformers;
+    transformers.clear();
+
     return _compiler.recompileDelta(entryPoint: entryPoint);
   }
 
