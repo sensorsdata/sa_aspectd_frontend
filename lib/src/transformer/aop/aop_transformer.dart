@@ -14,6 +14,7 @@ import 'aop_mode.dart';
 import 'aop_utils.dart';
 import 'aspectd_aop_execute_visitor.dart';
 import 'track_widget_custom_location.dart';
+import 'package:yaml/yaml.dart';
 
 /// Replaces [Object.toString] overrides with calls to super for the specified
 /// [packageUris].
@@ -32,18 +33,15 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
 
   @override
   void transform(Component component) {
-    print("AspectdAopTransformer====start transform");
     prepareAopItemInfo(component);
     if (executeInfoList.isNotEmpty) {
-      print("AspectdAopTransformer====start transform==execute====${executeInfoList.length}");
       component.visitChildren(AspectdAopExecuteVisitor(executeInfoList));
     }
     tracker.transform(component, component.libraries);
   }
 
-  void updateEntryPoint(String url) {
-    print("update entry point======$url");
-    tracker.updateEntryPoint(url);
+  void addEntryPoint(String url) {
+    tracker.addEntryPoint(url);
   }
 
   //查找需要执行 AOP 的类

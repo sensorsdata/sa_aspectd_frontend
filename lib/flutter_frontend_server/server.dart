@@ -10,54 +10,41 @@ import 'dart:io' hide FileSystemEntity;
 import 'dart:io';
 
 import 'package:args/args.dart';
-import 'package:frontend_server/frontend_server.dart' as frontend
-    show
-    FrontendCompiler,
-    CompilerInterface,
-    listenAndCompile,
-    argParser,
-    usage;
+import 'package:frontend_server/frontend_server.dart' as frontend show FrontendCompiler, CompilerInterface, listenAndCompile, argParser, usage;
 import 'package:path/path.dart' as path;
 import 'package:vm/incremental_compiler.dart';
 import 'package:vm/target/flutter.dart';
 import 'package:path/path.dart';
 import '../src/transformer/aop/aop_transformer.dart';
+import 'package:yaml/yaml.dart';
 
-/// flutter engine 已删除此类，此处保留此类是为了做 adapter
+/// frontend.FrontendCompiler 的 wrapper 类
 class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   final frontend.CompilerInterface _compiler;
   final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
 
-  _FlutterFrontendCompiler(StringSink output,
-      {bool unsafePackageSerialization,
-        bool useDebuggerModuleNames,
-        bool emitDebugMetadata})
+  _FlutterFrontendCompiler(StringSink output, {bool unsafePackageSerialization, bool useDebuggerModuleNames, bool emitDebugMetadata})
       : _compiler = frontend.FrontendCompiler(output,
-      useDebuggerModuleNames: useDebuggerModuleNames,
-      emitDebugMetadata: emitDebugMetadata,
-      unsafePackageSerialization: unsafePackageSerialization);
+            useDebuggerModuleNames: useDebuggerModuleNames,
+            emitDebugMetadata: emitDebugMetadata,
+            unsafePackageSerialization: unsafePackageSerialization);
 
   @override
-  Future<bool> compile(String filename, ArgResults options,
-      {IncrementalCompiler generator}) async {
-    List<FlutterProgramTransformer> transformers =
-        FlutterTarget.flutterProgramTransformers;
-    print("====11111===compile==server.dart");
+  Future<bool> compile(String filename, ArgResults options, {IncrementalCompiler generator}) async {
+    List<FlutterProgramTransformer> transformers = FlutterTarget.flutterProgramTransformers;
     if (!transformers.contains(aspectdAopTransformer)) {
-      print("====2222===compile==server.dart");
       transformers.add(aspectdAopTransformer);
       if(options.rest.isNotEmpty){
-        aspectdAopTransformer.updateEntryPoint(options.rest[0]);
+        aspectdAopTransformer.addEntryPoint(options.rest[0]);
       }
+      _updateEntryPoints(options);
     }
-    //FlutterTarget.flutterProgramTransformers.add(MyTransformer());
     return _compiler.compile(filename, options, generator: generator);
   }
 
   @override
   Future<Null> recompileDelta({String entryPoint}) async {
-    List<FlutterProgramTransformer> transformers =
-        FlutterTarget.flutterProgramTransformers;
+    List<FlutterProgramTransformer> transformers = FlutterTarget.flutterProgramTransformers;
     transformers.clear();
 
     return _compiler.recompileDelta(entryPoint: entryPoint);
@@ -79,12 +66,15 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> compileExpression(String expression, List<String> definitions, List<String> definitionTypes, List<String> typeDefinitions, List<String> typeBounds, List<String> typeDefaults, String libraryUri, String klass, String method, bool isStatic) {
-      return _compiler.compileExpression(expression, definitions, definitionTypes, typeDefinitions, typeBounds, typeDefaults, libraryUri, klass, method, isStatic);
+  Future<Null> compileExpression(String expression, List<String> definitions, List<String> definitionTypes, List<String> typeDefinitions,
+      List<String> typeBounds, List<String> typeDefaults, String libraryUri, String klass, String method, bool isStatic) {
+    return _compiler.compileExpression(
+        expression, definitions, definitionTypes, typeDefinitions, typeBounds, typeDefaults, libraryUri, klass, method, isStatic);
   }
 
   @override
-  Future<Null> compileExpressionToJs( // ignore: prefer_void_to_null
+  Future<Null> compileExpressionToJs(
+      // ignore: prefer_void_to_null
       String libraryUri,
       int line,
       int column,
@@ -92,8 +82,7 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
       Map<String, String> jsFrameValues,
       String moduleName,
       String expression) {
-    return _compiler.compileExpressionToJs(libraryUri, line, column, jsModules,
-        jsFrameValues, moduleName, expression);
+    return _compiler.compileExpressionToJs(libraryUri, line, column, jsModules, jsFrameValues, moduleName, expression);
   }
 
   @override
@@ -105,6 +94,33 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   void resetIncrementalCompiler() {
     _compiler.resetIncrementalCompiler();
   }
+
+  ///用于更新 track widget 入口
+  void _updateEntryPoints(ArgResults options) {
+    String packagesFilePath = options["packages"];
+    File packageFile = File(packagesFilePath);
+    Directory projectDirectory = packageFile.parent.parent;
+    List<FileSystemEntity> fileEntities = projectDirectory.listSync();
+    if (fileEntities != null) {
+      fileEntities.firstWhere((fileEntity) {
+        if (fileEntity is File) {
+          if (basename(fileEntity.path) == "sensorsdata_aop_config.yaml") {
+            String fileContent = fileEntity.readAsStringSync();
+            Map map = loadYaml(fileContent);
+            if (map.containsKey("entry_points")) {
+              YamlList values = map["entry_points"];
+              values.nodes.forEach((element) {
+                YamlNode node = element;
+                aspectdAopTransformer.addEntryPoint(node.value);
+              });
+            }
+            return true;
+          }
+        }
+        return false;
+      });
+    }
+  }
 }
 
 /// Entry point for this module, that creates `FrontendCompiler` instance and
@@ -112,14 +128,12 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
 /// `compiler` is an optional parameter so it can be replaced with mocked
 /// version for testing.
 Future<int> starter(
-    List<String> args, {
-      frontend.CompilerInterface compiler,
-      Stream<List<int>> input,
-      StringSink output,
-    }) async {
+  List<String> args, {
+  frontend.CompilerInterface compiler,
+  Stream<List<int>> input,
+  StringSink output,
+}) async {
   ArgResults options;
-  print("starter args==============");
-  print(args.join("   "));
   try {
     options = frontend.argParser.parse(args);
   } catch (error) {
@@ -135,8 +149,7 @@ Future<int> starter(
 
     final String input = options.rest[0];
     final String sdkRoot = options['sdk-root'] as String;
-    final Directory temp =
-    Directory.systemTemp.createTempSync('train_frontend_server');
+    final Directory temp = Directory.systemTemp.createTempSync('train_frontend_server');
     try {
       for (int i = 0; i < 3; i++) {
         final String outputTrainingDill = path.join(temp.path, 'app.dill');
@@ -169,8 +182,7 @@ Future<int> starter(
   compiler ??= _FlutterFrontendCompiler(output,
       useDebuggerModuleNames: options['debugger-module-names'] as bool,
       emitDebugMetadata: options['experimental-emit-debug-metadata'] as bool,
-      unsafePackageSerialization:
-      options['unsafe-package-serialization'] as bool);
+      unsafePackageSerialization: options['unsafe-package-serialization'] as bool);
 
   if (options.rest.isNotEmpty) {
     return await compiler.compile(options.rest[0], options) ? 0 : 254;
