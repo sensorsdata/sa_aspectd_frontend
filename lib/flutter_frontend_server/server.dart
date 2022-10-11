@@ -102,23 +102,27 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
     Directory projectDirectory = packageFile.parent.parent;
     List<FileSystemEntity> fileEntities = projectDirectory.listSync();
     if (fileEntities != null) {
-      fileEntities.firstWhere((fileEntity) {
-        if (fileEntity is File) {
-          if (basename(fileEntity.path) == "sensorsdata_aop_config.yaml") {
-            String fileContent = fileEntity.readAsStringSync();
-            Map map = loadYaml(fileContent);
-            if (map.containsKey("entry_points")) {
-              YamlList values = map["entry_points"];
-              values.nodes.forEach((element) {
-                YamlNode node = element;
-                aspectdAopTransformer.addEntryPoint(node.value);
-              });
+      try {
+        fileEntities.firstWhere((fileEntity) {
+          if (fileEntity is File) {
+            if (basename(fileEntity.path) == "sensorsdata_aop_config.yaml") {
+              String fileContent = fileEntity.readAsStringSync();
+              Map map = loadYaml(fileContent);
+              if (map.containsKey("entry_points")) {
+                YamlList values = map["entry_points"];
+                values.nodes.forEach((element) {
+                  YamlNode node = element;
+                  aspectdAopTransformer.addEntryPoint(node.value);
+                });
+              }
+              return true;
             }
-            return true;
           }
-        }
-        return false;
-      });
+          return false;
+        });
+      } catch (e) {
+        //just not found
+      }
     }
   }
 }
