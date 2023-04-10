@@ -484,7 +484,7 @@ class AopUtils {
       if (isReturnType || ignoreGenerics) {
         return const DynamicType();
       }
-      return TypeParameterType(deepCopyASTNode(node.parameter), node.nullability, deepCopyASTNode(node.promotedBound));
+      return TypeParameterType(deepCopyASTNode(node.parameter), node.nullability);
     }
     if (node is FunctionType) {
       return FunctionType(deepCopyASTNodes(node.positionalParameters), deepCopyASTNode(node.returnType, isReturnType: true), Nullability.legacy,
@@ -521,7 +521,7 @@ class AopUtils {
       if (isReturnType || ignoreGenerics) {
         return pointCuntTargetField.type;
       }
-      return TypeParameterType(deepCopyASTNode2(node.parameter), node.nullability, deepCopyASTNode2(node.promotedBound));
+      return TypeParameterType(deepCopyASTNode2(node.parameter), node.nullability);
     }
     if (node is FunctionType) {
       return FunctionType(deepCopyASTNode2(node.positionalParameters), deepCopyASTNode2(node.returnType, isReturnType: true), Nullability.nonNullable,
