@@ -11,26 +11,26 @@ class AopItemInfo {
         this.methodName,
         this.isStatic,
         this.aopMember,
-        this.isRegex,
+        this.isRegex = false,
         this.superCls,
         this.lineNum,
         this.excludeCoreLib = false,
         this.fieldName});
 
-  final AopMode mode;
-  final String importUri;
-  final String clsName;
-  final String methodName;
-  final bool isStatic;
+  final AopMode? mode;
+  final String? importUri;
+  final String? clsName;
+  final String? methodName;
+  final bool? isStatic;
   final bool isRegex;
-  final String superCls;
-  final Member aopMember;
-  final int lineNum;
-  final bool excludeCoreLib;
-  final String fieldName;
+  final String? superCls;
+  final Member? aopMember;
+  final int? lineNum;
+  final bool? excludeCoreLib;
+  final String? fieldName;
   static String uniqueKeyForMethod(
-      String importUri, String clsName, String methodName, bool isStatic,
-      {int lineNum}) {
+      String? importUri, String? clsName, String? methodName, bool isStatic,
+      {int? lineNum}) {
     return (importUri ?? '') +
         AopUtils.kAopUniqueKeySeperator +
         (clsName ?? '') +

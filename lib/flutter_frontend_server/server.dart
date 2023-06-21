@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// @dart=2.8
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' hide FileSystemEntity;
@@ -23,18 +21,18 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   final frontend.CompilerInterface _compiler;
   final AspectdAopTransformer aspectdAopTransformer = AspectdAopTransformer();
 
-  _FlutterFrontendCompiler(StringSink output, {bool unsafePackageSerialization, bool useDebuggerModuleNames, bool emitDebugMetadata})
+  _FlutterFrontendCompiler(StringSink? output, {bool? unsafePackageSerialization, bool useDebuggerModuleNames=false, bool emitDebugMetadata=false})
       : _compiler = frontend.FrontendCompiler(output,
             useDebuggerModuleNames: useDebuggerModuleNames,
             emitDebugMetadata: emitDebugMetadata,
             unsafePackageSerialization: unsafePackageSerialization);
 
   @override
-  Future<bool> compile(String filename, ArgResults options, {IncrementalCompiler generator}) async {
+  Future<bool> compile(String filename, ArgResults options, {IncrementalCompiler? generator}) async {
     List<FlutterProgramTransformer> transformers = FlutterTarget.flutterProgramTransformers;
     if (!transformers.contains(aspectdAopTransformer)) {
       transformers.add(aspectdAopTransformer);
-      if(options.rest.isNotEmpty){
+      if(options.rest.isNotEmpty) {
         aspectdAopTransformer.addEntryPoint(options.rest[0]);
       }
       _updateEntryPoints(options);
@@ -43,10 +41,9 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> recompileDelta({String entryPoint}) async {
+  Future<void> recompileDelta({String? entryPoint}) async {
     List<FlutterProgramTransformer> transformers = FlutterTarget.flutterProgramTransformers;
     transformers.clear();
-
     return _compiler.recompileDelta(entryPoint: entryPoint);
   }
 
@@ -66,14 +63,14 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
   }
 
   @override
-  Future<Null> compileExpression(String expression, List<String> definitions, List<String> definitionTypes, List<String> typeDefinitions,
-      List<String> typeBounds, List<String> typeDefaults, String libraryUri, String klass, String method, bool isStatic) {
+  Future<void> compileExpression(String expression, List<String> definitions, List<String> definitionTypes, List<String> typeDefinitions,
+      List<String> typeBounds, List<String> typeDefaults, String libraryUri, String? klass, String? method, bool isStatic) {
     return _compiler.compileExpression(
         expression, definitions, definitionTypes, typeDefinitions, typeBounds, typeDefaults, libraryUri, klass, method, isStatic);
   }
 
   @override
-  Future<Null> compileExpressionToJs(
+  Future<void> compileExpressionToJs(
       // ignore: prefer_void_to_null
       String libraryUri,
       int line,
@@ -100,7 +97,7 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
     String packagesFilePath = options["packages"];
     File packageFile = File(packagesFilePath);
     Directory projectDirectory = packageFile.parent.parent;
-    List<FileSystemEntity> fileEntities = projectDirectory.listSync();
+    List<FileSystemEntity>? fileEntities = projectDirectory.listSync();
     if (fileEntities != null) {
       try {
         fileEntities.firstWhere((fileEntity) {
@@ -125,6 +122,11 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
       }
     }
   }
+
+  @override
+  Future<bool> setNativeAssets(String nativeAssets) {
+    return _compiler.setNativeAssets(nativeAssets);
+  }
 }
 
 /// Entry point for this module, that creates `FrontendCompiler` instance and
@@ -133,9 +135,9 @@ class _FlutterFrontendCompiler implements frontend.CompilerInterface {
 /// version for testing.
 Future<int> starter(
   List<String> args, {
-  frontend.CompilerInterface compiler,
-  Stream<List<int>> input,
-  StringSink output,
+  frontend.CompilerInterface? compiler,
+  Stream<List<int>>? input,
+  StringSink? output,
 }) async {
   ArgResults options;
   try {

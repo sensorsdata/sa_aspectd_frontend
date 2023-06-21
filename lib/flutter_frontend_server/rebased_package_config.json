@@ -35,7 +35,7 @@
       "name": "bazel_worker",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/bazel_worker",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "build_integration",
@@ -59,7 +59,7 @@
       "name": "crypto",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/crypto",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "dart2js_info",
@@ -89,25 +89,25 @@
       "name": "fixnum",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/fixnum",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "front_end",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/front_end",
       "packageUri": "lib/",
-      "languageVersion": "2.13"
+      "languageVersion": "2.17"
     },
     {
       "name": "frontend_server",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/frontend_server",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.16"
     },
     {
       "name": "http_parser",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/http_parser",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "js_ast",
@@ -125,19 +125,19 @@
       "name": "js_shared",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/js_shared",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "kernel",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/kernel",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "litetest",
       "rootUri": "../../testing/litetest",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "meta",
@@ -146,16 +146,22 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "mmap",
+      "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/mmap",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "package_config",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/package_config",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.18"
     },
     {
       "name": "path",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/path",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "protobuf",
@@ -197,7 +203,7 @@
       "name": "stream_channel",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/stream_channel",
       "packageUri": "lib/",
-      "languageVersion": "2.14"
+      "languageVersion": "2.19"
     },
     {
       "name": "string_scanner",
@@ -209,13 +215,13 @@
       "name": "term_glyph",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/term_glyph",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "typed_data",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/typed_data",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.17"
     },
     {
       "name": "usage",
@@ -227,34 +233,34 @@
       "name": "vm",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/vm",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.17"
     },
     {
       "name": "vm_service",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/vm_service",
       "packageUri": "lib/",
-      "languageVersion": "2.15"
+      "languageVersion": "2.19"
     },
     {
       "name": "vm_snapshot_analysis",
       "rootUri": "../../../flutter_aspectd_dart_sdk/pkg/vm_snapshot_analysis",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.14"
     },
     {
       "name": "yaml",
       "rootUri": "../../../flutter_aspectd_dart_sdk/third_party/pkg/yaml",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_frontend_server",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     }
   ],
-  "generated": "2023-04-11T01:32:40.206905Z",
+  "generated": "2023-06-19T07:28:18.406140Z",
   "generator": "pub",
-  "generatorVersion": "2.19.0-374.0.dev"
+  "generatorVersion": "3.0.0-369.0.dev"
 }

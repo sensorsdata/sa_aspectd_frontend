@@ -4,7 +4,7 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: '>=3.0.0-0 <4.0.0'
 
 dependencies:
   flutter:
@@ -40,6 +40,8 @@ dependency_overrides:
     path: ../flutter_aspectd_dart_sdk/pkg/js_runtime
   js_ast:
     path: ../flutter_aspectd_dart_sdk/pkg/js_ast
+  dart2js_info:
+    path: ../flutter_aspectd_dart_sdk/pkg/dart2js_info
   vm:
     path: ../flutter_aspectd_dart_sdk/pkg/vm
 

@@ -30,20 +30,20 @@ class AopUtils {
   static String kAopStubMethodPrefix = 'aop_stub_';
   static String kAopPointcutProcessName = 'proceed';
   static String kAopPointcutIgnoreVariableDeclaration = '//Aspectd Ignore';
-  static Procedure pointCutProceedProcedure;
-  static Procedure listGetProcedure;
-  static Procedure mapGetProcedure;
-  static Component platformStrongComponent;
+  static Procedure? pointCutProceedProcedure;
+  static Procedure? listGetProcedure;
+  static Procedure? mapGetProcedure;
+  static Component? platformStrongComponent;
   static Set<Procedure> manipulatedProcedureSet = {};
-  static Field pointCuntTargetField;
-  static Field pointCutStubKeyField;
-  static Class boolClass;
-  static Procedure stringEqualsProcedure;
-  static Field pointCutPositionParamsListField;
-  static Field pointCutNamedParamsMapField;
-  static Field pointCutCuriousField;
+  static Field? pointCuntTargetField;
+  static Field? pointCutStubKeyField;
+  static Class? boolClass;
+  static Procedure? stringEqualsProcedure;
+  static Field? pointCutPositionParamsListField;
+  static Field? pointCutNamedParamsMapField;
+  static Field? pointCutCuriousField;
 
-  static AopMode getAopModeByNameAndImportUri(String name, String importUri) {
+  static AopMode? getAopModeByNameAndImportUri(String? name, String? importUri) {
     if (name == kAopAnnotationClassCall && importUri == kImportUriAopCall) {
       return AopMode.Call;
     }
@@ -93,27 +93,27 @@ class AopUtils {
   }
 
   static int getLineNumBySourceAndOffset(Source source, int fileOffset) {
-    final int lineNum = source.lineStarts.length;
+    final int lineNum = source.lineStarts?.length ?? 0;
     for (int i = 0; i < lineNum; i++) {
-      final int lineStart = source.lineStarts[i];
-      if (fileOffset >= lineStart && (i == lineNum - 1 || fileOffset < source.lineStarts[i + 1])) {
+      final int lineStart = source.lineStarts![i];
+      if (fileOffset >= lineStart && (i == lineNum - 1 || fileOffset < source.lineStarts![i + 1])) {
         return i;
       }
     }
     return -1;
   }
 
-  static VariableDeclaration checkIfSkipableVarDeclaration(Source source, Statement statement) {
+  static VariableDeclaration? checkIfSkipableVarDeclaration(Source source, Statement statement) {
     if (statement is VariableDeclaration) {
       final VariableDeclaration variableDeclaration = statement;
       final int lineNum = AopUtils.getLineNumBySourceAndOffset(source, variableDeclaration.fileOffset);
-      if (lineNum == -1) {
+      if (lineNum == -1 || source.lineStarts == null) {
         return null;
       }
-      final int charFrom = source.lineStarts[lineNum];
+      final int charFrom = source.lineStarts![lineNum];
       int charTo = source.source.length;
-      if (lineNum < source.lineStarts.length - 1) {
-        charTo = source.lineStarts[lineNum + 1];
+      if (lineNum < source.lineStarts!.length - 1) {
+        charTo = source.lineStarts![lineNum + 1];
       }
       final String sourceString = const Utf8Decoder().convert(source.source);
       final String sourceLine = sourceString.substring(charFrom, charTo);
@@ -158,7 +158,7 @@ class AopUtils {
     return cls;
   }
 
-  static Field findFieldForClassWithName(Class cls, String fieldName) {
+  static Field? findFieldForClassWithName(Class cls, String fieldName) {
     for (Field field in cls.fields) {
       if (field.name.text == fieldName) {
         return field;
@@ -171,7 +171,7 @@ class AopUtils {
     return functionNode.dartAsyncMarker == AsyncMarker.Async || functionNode.dartAsyncMarker == AsyncMarker.AsyncStar;
   }
 
-  static Node getNodeToVisitRecursively(Object statement) {
+  static Node? getNodeToVisitRecursively(Object statement) {
     if (statement is FunctionDeclaration) {
       return statement.function;
     }
@@ -191,18 +191,18 @@ class AopUtils {
   }
 
   //根据需要被 hook 的代码的参数，构建最终的 PointCut 的构造方法参数
-  static void concatArgumentsForAopMethod(Map<String, String> sourceInfo, Arguments redirectArguments, String stubKey, Expression targetExpression,
+  static void concatArgumentsForAopMethod(Map<String, String> sourceInfo, Arguments redirectArguments, String? stubKey, Expression targetExpression,
       Member member, Arguments invocationArguments) {
     final String stubKeyDefault = '${AopUtils.kAopStubMethodPrefix}${AopUtils.kPrimaryKeyAopMethod}';
     //重定向到AOP的函数体中去
     final Arguments pointCutConstructorArguments = Arguments.empty();
     final List<MapLiteralEntry> sourceInfos = <MapLiteralEntry>[];
-    sourceInfo?.forEach((String key, String value) {
+    sourceInfo.forEach((String key, String value) {
       sourceInfos.add(MapLiteralEntry(StringLiteral(key), StringLiteral(value)));
     });
     pointCutConstructorArguments.positional.add(MapLiteral(sourceInfos));
     pointCutConstructorArguments.positional.add(targetExpression);
-    String memberName = member?.name.text;
+    String memberName = member.name.text;
     if (member is Constructor) {
       memberName = AopUtils.nameForConstructor(member);
     }
@@ -215,7 +215,7 @@ class AopUtils {
     }
     pointCutConstructorArguments.positional.add(MapLiteral(entries));
 
-    final Class pointCutProceedProcedureCls = pointCutProceedProcedure.parent as Class;
+    final Class pointCutProceedProcedureCls = pointCutProceedProcedure!.parent as Class;
     final ConstructorInvocation pointCutConstructorInvocation =
         ConstructorInvocation(pointCutProceedProcedureCls.constructors.first, pointCutConstructorArguments);
     redirectArguments.positional.add(pointCutConstructorInvocation);
@@ -226,51 +226,60 @@ class AopUtils {
     final Arguments arguments = Arguments.empty();
     //处理位置参数
     int i = 0;
-    for (VariableDeclaration variableDeclaration in member.function.positionalParameters) {
+    for (VariableDeclaration variableDeclaration
+        in member.function!.positionalParameters) {
       //此处是将 PointCut 中的 positionalParams 分别转换为不同的类型
       final Arguments getArguments = Arguments.empty();
       getArguments.positional.add(IntLiteral(i));
       //调用 List 中的 i 项，并做类型转换  this.positionalParams[i] as int
       //此处相当于 this.positionalParams
-      InstanceGet instanceGet = InstanceGet.byReference(InstanceAccessKind.Instance, ThisExpression(), Name("positionalParams"),
-          interfaceTargetReference: pointCutPositionParamsListField.getterReference, resultType: pointCutPositionParamsListField.type);
+      InstanceGet instanceGet = InstanceGet.byReference(
+          InstanceAccessKind.Instance,
+          ThisExpression(),
+          Name("positionalParams"),
+          interfaceTargetReference:
+              pointCutPositionParamsListField!.getterReference,
+          resultType: pointCutPositionParamsListField!.type);
 
       //调用 list[i]
       InstanceInvocation mockedInstanceInvocation = InstanceInvocation(
           InstanceAccessKind.Instance,
           instanceGet,
-          listGetProcedure.name, //此处的 name 为  []
+          listGetProcedure!.name, //此处的 name 为  []
           getArguments,
-          interfaceTarget: listGetProcedure,
-          functionType: AopUtils.computeFunctionTypeForFunctionNode(listGetProcedure.function, arguments));
+          interfaceTarget: listGetProcedure!,
+          functionType: AopUtils.computeFunctionTypeForFunctionNode(
+              listGetProcedure!.function, arguments));
       //转换成原方法中对应位置的类型
-      AsExpression asExpression = AsExpression(mockedInstanceInvocation, deepCopyASTNode(variableDeclaration.type, ignoreGenerics: true));
+      AsExpression asExpression = AsExpression(mockedInstanceInvocation,
+          deepCopyASTNode(variableDeclaration.type, ignoreGenerics: true));
       arguments.positional.add(asExpression);
       i++;
     }
+
     //处理命名参数
     final List<NamedExpression> namedEntries = <NamedExpression>[];
-    for (VariableDeclaration variableDeclaration in member.function.namedParameters) {
+    for (VariableDeclaration variableDeclaration in member.function!.namedParameters) {
       final Arguments getArguments = Arguments.empty();
-      getArguments.positional.add(StringLiteral(variableDeclaration.name));
+      if (variableDeclaration.name != null) {
+        getArguments.positional.add(StringLiteral(variableDeclaration.name!));
+      }
 
       //调用 this.positionalParams
       InstanceGet instanceGet = InstanceGet.byReference(InstanceAccessKind.Instance, ThisExpression(), Name("namedParams"),
-          interfaceTargetReference: pointCutNamedParamsMapField.getterReference, resultType: pointCutNamedParamsMapField.type);
-
-      int a = 10;
+          interfaceTargetReference: pointCutNamedParamsMapField!.getterReference, resultType: pointCutNamedParamsMapField!.type);
 
       //调用 this.positionalParams["xxx"]
       InstanceInvocation mockedInstanceInvocation = InstanceInvocation(
           InstanceAccessKind.Instance,
           instanceGet,
-          mapGetProcedure.name, //此处的 name 为  []
+          mapGetProcedure!.name, //此处的 name 为  []
           getArguments,
-          interfaceTarget: mapGetProcedure,
-          functionType: AopUtils.computeFunctionTypeForFunctionNode(mapGetProcedure.function, arguments));
+          interfaceTarget: mapGetProcedure!,
+          functionType: AopUtils.computeFunctionTypeForFunctionNode(mapGetProcedure!.function, arguments));
 
       final AsExpression asExpression = AsExpression(mockedInstanceInvocation, deepCopyASTNode(variableDeclaration.type, ignoreGenerics: true));
-      namedEntries.add(NamedExpression(variableDeclaration.name, asExpression)); //相当于 PointCut   this.namedParams["name"] as String
+      namedEntries.add(NamedExpression(variableDeclaration.name!, asExpression)); //相当于 PointCut   this.namedParams["name"] as String
     }
     if (namedEntries.isNotEmpty) {
       arguments.named.addAll(namedEntries);
@@ -280,7 +289,7 @@ class AopUtils {
 
   //修改 PointCut proceed 方法中的分支
   static void insertProceedBranch(Procedure procedure, bool shouldReturn) {
-    final Block block = pointCutProceedProcedure.function.body as Block; //proceed 方法的内容
+    final Block block = pointCutProceedProcedure!.function.body as Block; //proceed 方法的内容
     final String methodName = procedure.name.text; //aop_stub0
 
     InstanceInvocation instanceInvocation = InstanceInvocation(InstanceAccessKind.Instance, ThisExpression(), Name(methodName), Arguments.empty(),
@@ -294,11 +303,11 @@ class AopUtils {
             InstanceAccessKind.Instance, //this.stubkey
             ThisExpression(),
             Name("stubKey"),
-            interfaceTargetReference: pointCutStubKeyField.getterReference,
-            resultType: pointCutStubKeyField.type),
+            interfaceTargetReference: pointCutStubKeyField!.getterReference,
+            resultType: pointCutStubKeyField!.type),
         StringLiteral(methodName), //right
-        functionType: FunctionType([], InterfaceType(boolClass, Nullability.nonNullable), Nullability.nonNullable),
-        interfaceTarget: stringEqualsProcedure);
+        functionType: FunctionType([], InterfaceType(boolClass!, Nullability.nonNullable), Nullability.nonNullable),
+        interfaceTarget: stringEqualsProcedure!);
 
     IfStatement ifStatement = IfStatement(
         equalsCall,
@@ -312,7 +321,7 @@ class AopUtils {
   }
 
   static bool canOperateLibrary(Library library) {
-    if (platformStrongComponent != null && platformStrongComponent.libraries.contains(library)) {
+    if (platformStrongComponent != null && platformStrongComponent!.libraries.contains(library)) {
       return false;
     }
     return true;
@@ -330,8 +339,8 @@ class AopUtils {
 
   // Skip aop operation for those aspectd/aop package.
   static bool checkIfSkipAOP(AopItemInfo aopItemInfo, Library curLibrary) {
-    final Library aopLibrary1 = aopItemInfo.aopMember.parent.parent as Library;
-    final Library aopLibrary2 = pointCutProceedProcedure.parent.parent as Library;
+    final Library aopLibrary1 = aopItemInfo.aopMember!.parent!.parent as Library;
+    final Library aopLibrary2 = pointCutProceedProcedure!.parent!.parent as Library;
     if (curLibrary == aopLibrary1 || curLibrary == aopLibrary2) {
       return true;
     }
@@ -349,7 +358,7 @@ class AopUtils {
           final InstanceConstant instanceConstant = constant;
           final Class instanceClass = instanceConstant.classReference.node as Class;
           if (instanceClass.name == AopUtils.kAopAnnotationClassAspect &&
-              AopUtils.kImportUriAopAspect == (instanceClass.parent as Library)?.importUri.toString()) {
+              AopUtils.kImportUriAopAspect == (instanceClass.parent as Library).importUri.toString()) {
             enabled = true;
             break;
           }
@@ -358,7 +367,10 @@ class AopUtils {
       //Debug Mode
       else if (annotation is ConstructorInvocation) {
         final ConstructorInvocation constructorInvocation = annotation;
-        final Class cls = constructorInvocation.targetReference.node?.parent as Class;
+        Class? cls;
+        if (constructorInvocation.targetReference.node?.parent != null) {
+          cls = constructorInvocation.targetReference.node?.parent as Class;
+        }
         if (cls == null) {
           continue;
         }
@@ -380,13 +392,13 @@ class AopUtils {
       importUri = importUri.substring(0, idx);
     }
     final Uri fileUri = library.fileUri;
-    final Source source = uriToSource[fileUri];
-    int lineNum;
-    int lineOffSet;
-    final int lineStartCnt = source.lineStarts.length;
+    final Source source = uriToSource[fileUri]!;
+    int? lineNum;
+    int? lineOffSet;
+    final int lineStartCnt = source.lineStarts!.length;
     for (int i = 0; i < lineStartCnt; i++) {
-      final int lineStartIdx = source.lineStarts[i];
-      if (lineStartIdx <= fileOffset && (i == lineStartCnt - 1 || source.lineStarts[i + 1] > fileOffset)) {
+      final int lineStartIdx = source.lineStarts![i];
+      if (lineStartIdx <= fileOffset && (i == lineStartCnt - 1 || source.lineStarts![i + 1] > fileOffset)) {
         lineNum = i;
         lineOffSet = fileOffset - lineStartIdx;
         break;
@@ -394,7 +406,7 @@ class AopUtils {
     }
     sourceInfo.putIfAbsent('library', () => importUri);
     sourceInfo.putIfAbsent('file', () => fileUri.toString());
-    sourceInfo.putIfAbsent('lineNum', () => '${lineNum + 1}');
+    sourceInfo.putIfAbsent('lineNum', () => '${lineNum ?? 0 + 1}');
     sourceInfo.putIfAbsent('lineOffset', () => '$lineOffSet');
     return sourceInfo;
   }
@@ -500,7 +512,7 @@ class AopUtils {
 
   static dynamic deepCopyASTNode2(dynamic node, {bool isReturnType = false, bool ignoreGenerics = false}) {
     if (node is TypeParameter) {
-      if (ignoreGenerics) return TypeParameter(node.name, node.bound, pointCuntTargetField.type);
+      if (ignoreGenerics) return TypeParameter(node.name, node.bound, pointCuntTargetField!.type);
     }
     if (node is VariableDeclaration) {
       return VariableDeclaration(
@@ -519,7 +531,7 @@ class AopUtils {
     }
     if (node is TypeParameterType) {
       if (isReturnType || ignoreGenerics) {
-        return pointCuntTargetField.type;
+        return pointCuntTargetField!.type;
       }
       return TypeParameterType(deepCopyASTNode2(node.parameter), node.nullability);
     }
@@ -530,7 +542,7 @@ class AopUtils {
           requiredParameterCount: node.requiredParameterCount);
     }
     if (node is TypedefType) {
-      return TypedefType(node.typedefNode, Nullability.nonNullable, [pointCuntTargetField.type]);
+      return TypedefType(node.typedefNode, Nullability.nonNullable, [pointCuntTargetField!.type]);
     }
     return node;
   }
@@ -620,7 +632,7 @@ class AopUtils {
       positional.add(VariableGet(variableDeclaration));
     }
     for (VariableDeclaration variableDeclaration in functionNode.namedParameters) {
-      named.add(NamedExpression(variableDeclaration.name, VariableGet(variableDeclaration)));
+      named.add(NamedExpression(variableDeclaration.name!, VariableGet(variableDeclaration)));
     }
     return Arguments(positional, named: named);
   }

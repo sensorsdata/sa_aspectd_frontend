@@ -20,9 +20,8 @@ import 'package:yaml/yaml.dart';
 /// [packageUris].
 class AspectdAopTransformer extends FlutterProgramTransformer {
   /// The [packageUris] parameter must not be null, but may be empty.
-  AspectdAopTransformer();
 
-  Component platformStrongComponent;
+  Component? platformStrongComponent;
   final List<AopItemInfo> aopItemInfoList = <AopItemInfo>[];
   final List<AopItemInfo> callInfoList = <AopItemInfo>[];
   final List<AopItemInfo> executeInfoList = <AopItemInfo>[];
@@ -53,17 +52,17 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
     }
 
     _resolveAopProcedures(libraries);
-    Procedure pointCutProceedProcedure;
-    Procedure listGetProcedure;
-    Procedure mapGetProcedure;
+    Procedure? pointCutProceedProcedure;
+    Procedure? listGetProcedure;
+    Procedure? mapGetProcedure;
     //Search the PointCut class first
     final List<Library> concatLibraries = <Library>[
       ...libraries,
-      ...platformStrongComponent != null ? platformStrongComponent.libraries : <Library>[]
+      ...platformStrongComponent != null ? platformStrongComponent!.libraries : <Library>[]
     ];
     concatUriToSource
       ..addAll(program.uriToSource)
-      ..addAll(platformStrongComponent != null ? platformStrongComponent.uriToSource : <Uri, Source>{});
+      ..addAll(platformStrongComponent != null ? platformStrongComponent!.uriToSource : <Uri, Source>{});
     for (Library library in concatLibraries) {
       libraryMap.putIfAbsent(library.importUri.toString(), () => library);
       if (pointCutProceedProcedure != null && listGetProcedure != null && mapGetProcedure != null) {
@@ -175,7 +174,7 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
           if (!(member is Member)) {
             continue;
           }
-          final AopItemInfo aopItemInfo = _processAopMember(member); //此处需要注意 aopMember 字段，例如 _incrementCounterTest 方法对应的 Prodedure 对象
+          final AopItemInfo? aopItemInfo = _processAopMember(member); //此处需要注意 aopMember 字段，例如 _incrementCounterTest 方法对应的 Prodedure 对象
           if (aopItemInfo != null) {
             aopItemInfoList.add(aopItemInfo);
           }
@@ -184,7 +183,7 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
     }
   }
 
-  AopItemInfo _processAopMember(Member member) {
+  AopItemInfo? _processAopMember(Member member) {
     for (Expression annotation in member.annotations) {
       //Release mode
       if (annotation is ConstantExpression) {
@@ -193,36 +192,36 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
         if (constant is InstanceConstant) {
           final InstanceConstant instanceConstant = constant;
           final Class instanceClass = instanceConstant.classReference.node as Class;
-          final AopMode aopMode =
-              AopUtils.getAopModeByNameAndImportUri(instanceClass.name, (instanceClass.parent as Library)?.importUri.toString());
+          final AopMode? aopMode =
+              AopUtils.getAopModeByNameAndImportUri(instanceClass.name, (instanceClass.parent as Library).importUri.toString());
           if (aopMode == null) {
             continue;
           }
-          String importUri;
-          String clsName;
-          String methodName;
+          String? importUri;
+          String? clsName;
+          String methodName = "";
           bool isRegex = false;
-          int lineNum;
+          int? lineNum;
           instanceConstant.fieldValues.forEach((Reference reference, Constant constant) {
             if (constant is StringConstant) {
               final String value = constant.value;
-              if ((reference.node as Field)?.name.toString() == AopUtils.kAopAnnotationImportUri) {
+              if ((reference.node as Field).name.toString() == AopUtils.kAopAnnotationImportUri) {
                 importUri = value;
-              } else if ((reference.node as Field)?.name.toString() == AopUtils.kAopAnnotationClsName) {
+              } else if ((reference.node as Field).name.toString() == AopUtils.kAopAnnotationClsName) {
                 clsName = value;
-              } else if ((reference.node as Field)?.name.toString() == AopUtils.kAopAnnotationMethodName) {
+              } else if ((reference.node as Field).name.toString() == AopUtils.kAopAnnotationMethodName) {
                 methodName = value;
               }
             }
             if (constant is IntConstant) {
               final int value = constant.value;
-              if ((reference.node as Field)?.name.toString() == AopUtils.kAopAnnotationLineNum) {
+              if ((reference.node as Field).name.toString() == AopUtils.kAopAnnotationLineNum) {
                 lineNum = value - 1;
               }
             }
             if (constant is BoolConstant) {
               final bool value = constant.value;
-              if ((reference.node as Field)?.name?.toString() == AopUtils.kAopAnnotationIsRegex) {
+              if ((reference.node as Field).name.toString() == AopUtils.kAopAnnotationIsRegex) {
                 isRegex = value;
               }
             }
@@ -250,8 +249,8 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
       else if (annotation is ConstructorInvocation) {
         final ConstructorInvocation constructorInvocation = annotation;
         final Class cls = constructorInvocation.targetReference.node?.parent as Class;
-        final Library clsParentLib = cls?.parent as Library;
-        final AopMode aopMode = AopUtils.getAopModeByNameAndImportUri(cls?.name, clsParentLib?.importUri.toString());
+        final Library clsParentLib = cls.parent as Library;
+        final AopMode? aopMode = AopUtils.getAopModeByNameAndImportUri(cls.name, clsParentLib.importUri.toString());
         if (aopMode == null) {
           continue;
         }
@@ -262,7 +261,7 @@ class AspectdAopTransformer extends FlutterProgramTransformer {
         final StringLiteral stringLiteral2 = constructorInvocation.arguments.positional[2] as StringLiteral;
         String methodName = stringLiteral2.value;
         bool isRegex = false;
-        int lineNum;
+        int? lineNum;
         for (NamedExpression namedExpression in constructorInvocation.arguments.named) {
           if (namedExpression.name == AopUtils.kAopAnnotationLineNum) {
             final IntLiteral intLiteral = namedExpression.value as IntLiteral;

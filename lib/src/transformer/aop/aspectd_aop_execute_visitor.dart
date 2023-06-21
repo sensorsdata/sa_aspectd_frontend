@@ -16,7 +16,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
     for (int i = 0; i < aopItemInfoListLen && !matches; i++) {//查询当前的 Library 中的 dart 文件是否有符合 AOP 中定义的 Hook 点
       AopItemInfo aopItemInfo = _aopItemInfoList[i];
       if ((aopItemInfo.isRegex &&
-              RegExp(aopItemInfo.importUri).hasMatch(importUri)) ||
+              RegExp(aopItemInfo.importUri??"").hasMatch(importUri)) ||
           (!aopItemInfo.isRegex && importUri == aopItemInfo.importUri)) {//此处的 importUri 例子：package:testdemo/main_old.dart
         matches = true;
         break;
@@ -35,7 +35,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
     for (int i = 0; i < aopItemInfoListLen && !matches; i++) {
       AopItemInfo aopItemInfo = _aopItemInfoList[i];
       if ((aopItemInfo.isRegex &&
-              RegExp(aopItemInfo.clsName).hasMatch(clsName)) ||
+              RegExp(aopItemInfo.clsName??"").hasMatch(clsName)) ||
           (!aopItemInfo.isRegex && clsName == aopItemInfo.clsName)) {//判断当前的类是否在 AOPItem 中找到
         matches = true;
         break;
@@ -49,12 +49,12 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
   @override
   void visitProcedure(Procedure node) {
     String procedureName = node.name.text;
-    AopItemInfo matchedAopItemInfo;
+    AopItemInfo? matchedAopItemInfo;
     int aopItemInfoListLen = _aopItemInfoList.length;
     for (int i = 0; i < aopItemInfoListLen && matchedAopItemInfo == null; i++) {
       AopItemInfo aopItemInfo = _aopItemInfoList[i];
       if ((aopItemInfo.isRegex &&
-              RegExp(aopItemInfo.methodName).hasMatch(procedureName)) ||
+              RegExp(aopItemInfo.methodName??"").hasMatch(procedureName)) ||
           (!aopItemInfo.isRegex && procedureName == aopItemInfo.methodName)) {//查看类中的所有方法，将其与 AOPItem 进行对比，确认是否是需要处理的方法
         matchedAopItemInfo = aopItemInfo;
         break;
@@ -69,12 +69,12 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
             node.parent as Library, matchedAopItemInfo, node);
       } else if (node.parent is Class) {
         transformStaticMethodProcedure(
-            node.parent.parent as Library, matchedAopItemInfo, node);
+            node.parent!.parent! as Library, matchedAopItemInfo, node);
       }
     } else {
       if (node.parent != null) {
         transformInstanceMethodProcedure(
-            node.parent.parent as Library, matchedAopItemInfo, node);
+            node.parent!.parent! as Library, matchedAopItemInfo, node);
       }
     }
   }
@@ -85,7 +85,10 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
       return;
     }
     final FunctionNode functionNode = originalProcedure.function;
-    final Statement body = functionNode.body;
+    final Statement? body = functionNode.body;
+    if (body == null) {
+      return;
+    }
     final bool shouldReturn =
         !(originalProcedure.function.returnType is VoidType);
 
@@ -101,28 +104,28 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
         originalProcedure,
         body,
         shouldReturn);
-    final Node parent = originalProcedure.parent;
-    String parentIdentifier;
+    final Node? parent = originalProcedure.parent;
+    String? parentIdentifier;
     if (parent is Library) {
-      parent.procedures.add(originalStubProcedure);
+      parent.addProcedure(originalStubProcedure);
       parentIdentifier = parent.importUri.toString();
     } else if (parent is Class) {
-      parent.procedures.add(originalStubProcedure);
+      parent.addProcedure(originalStubProcedure);
       parentIdentifier = parent.name;
     }
     functionNode.body = createPointcutCallFromOriginal(
         originalLibrary,
         aopItemInfo,
         stubKey,
-        StringLiteral(parentIdentifier),
+        StringLiteral(parentIdentifier!),
         originalProcedure,
         AopUtils.argumentsFromFunctionNode(functionNode),
         shouldReturn);
 
     //Pointcut类中新增stub，并且添加调用
     final Library pointcutLibrary =
-        AopUtils.pointCutProceedProcedure.parent.parent as Library;
-    final Class pointcutClass = AopUtils.pointCutProceedProcedure.parent as Class;
+        AopUtils.pointCutProceedProcedure!.parent!.parent! as Library;
+    final Class pointcutClass = AopUtils.pointCutProceedProcedure!.parent! as Class;
     AopUtils.insertLibraryDependency(pointcutLibrary, originalLibrary);
 
     final StaticInvocation staticInvocation = StaticInvocation(
@@ -131,13 +134,13 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
         isConst: originalStubProcedure.isConst);
 
     final Procedure stubProcedureNew = AopUtils.createStubProcedure(
-        Name(stubKey, AopUtils.pointCutProceedProcedure.name.library),
+        Name(stubKey, AopUtils.pointCutProceedProcedure!.name.library),
         aopItemInfo,
-        AopUtils.pointCutProceedProcedure,
+        AopUtils.pointCutProceedProcedure!,
         AopUtils.createProcedureBodyWithExpression(
             staticInvocation, shouldReturn),
         shouldReturn);
-    pointcutClass.procedures.add(stubProcedureNew);
+    pointcutClass.addProcedure(stubProcedureNew);
     AopUtils.insertProceedBranch(stubProcedureNew, shouldReturn);
   }
   //例如现在开始处理 _MyHomePageState 的 _incrementCounter 方法，步骤是：
@@ -152,7 +155,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
     }
     final FunctionNode functionNode = originalProcedure.function;//FunctionNode 中定义了方法的参数和、body、返回值类型等
     final Class originalClass = originalProcedure.parent as Class;
-    final Statement body = functionNode.body;
+    final Statement? body = functionNode.body;
     if (body == null) {
       return;
     }
@@ -171,7 +174,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
         originalProcedure,
         body,
         shouldReturn);
-    originalClass.procedures.add(originalStubProcedure);
+    originalClass.addProcedure(originalStubProcedure);
     functionNode.body = createPointcutCallFromOriginal(//将原方法_incrementCounter中的内容，使用 new SensorsAnalyticsAOP()._incrementCounterTest(PointCut) 这样的方法体替换掉
         originalLibrary,
         aopItemInfo,
@@ -183,18 +186,20 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
 
     //Pointcut类中新增stub，并且添加调用
     final Library pointcutLibrary =
-        AopUtils.pointCutProceedProcedure.parent.parent as Library;
-    final Class pointcutClass = AopUtils.pointCutProceedProcedure.parent as Class;
+        AopUtils.pointCutProceedProcedure!.parent!.parent as Library;
+    final Class pointcutClass = AopUtils.pointCutProceedProcedure!.parent as Class;
     AopUtils.insertLibraryDependency(pointcutLibrary, originalLibrary);//pointcut.dart 中依赖 main_old.dart，
 
     InstanceGet instanceGet = InstanceGet.byReference(InstanceAccessKind.Instance,
         ThisExpression(),
         Name("target"),
-        interfaceTargetReference: AopUtils.pointCuntTargetField.getterReference,
-        resultType: AopUtils.pointCuntTargetField.type);
+        interfaceTargetReference: AopUtils.pointCuntTargetField!.getterReference,
+        resultType: AopUtils.pointCuntTargetField!.type);
     AsExpression asExpression = AsExpression(instanceGet, InterfaceType(originalClass, Nullability.nonNullable));
 
+    //TODO 应该是这里没有将 PointCut 中的参数正确的回传导致的
     Arguments arguments = AopUtils.concatArguments4PointcutStubCall(originalProcedure);// originalProcedure 中包含了需要的各种参数信息
+    int a = 10;
     InstanceInvocation mockedInstanceInvocation = InstanceInvocation(//mockedInvocation 相当于 (this.target as _MyHomePageState)._incrementCounter_aop_stub_0()
         InstanceAccessKind.Instance,
         asExpression,
@@ -205,15 +210,16 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
 
     //在 PointCut 中创建 aop_stub_0 方法，此方法体为 (this.target as _MyHomePageState)._incrementCounter_aop_stub_0()
     final Procedure stubProcedureNew = AopUtils.createStubProcedure(
-        Name(stubKey, AopUtils.pointCutProceedProcedure.name.library),//创建 aop_stub_0
+        Name(stubKey, AopUtils.pointCutProceedProcedure!.name.library),//创建 aop_stub_0
         aopItemInfo,
-        AopUtils.pointCutProceedProcedure,
+        AopUtils.pointCutProceedProcedure!,
         AopUtils.createProcedureBodyWithExpression(
             mockedInstanceInvocation, shouldReturn),
         shouldReturn);
-    pointcutClass.procedures.add(stubProcedureNew);//添加到 PointCut 类中
+    pointcutClass.addProcedure(stubProcedureNew);//添加到 PointCut 类中
     AopUtils.insertProceedBranch(stubProcedureNew, shouldReturn);
   }
+
   //创建 new SensorsAnalyticsAOP()._incrementCounterTest(PointCut) 这样的方法体
   Block createPointcutCallFromOriginal(
       Library library,
@@ -224,18 +230,18 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
       Arguments arguments,
       bool shouldReturn) {
     AopUtils.insertLibraryDependency(//当前的 Library 中添加依赖，例如 testdemo/main_old.dart 中添加，sa_aspectd_impl/sensorsdata_aop_impl.dart
-        library, aopItemInfo.aopMember.parent.parent as Library);
+        library, aopItemInfo.aopMember!.parent!.parent as Library);
     final Arguments redirectArguments = Arguments.empty();//AOP 代码的参数，例如 AOP._hookClick(PointCut) 方法的参数
     AopUtils.concatArgumentsForAopMethod(
-        null, redirectArguments, stubKey, targetExpression, member, arguments);
-    Expression callExpression;
+        {}, redirectArguments, stubKey, targetExpression, member, arguments);
+    Expression? callExpression;
     if (aopItemInfo.aopMember is Procedure) {
       final Procedure procedure = aopItemInfo.aopMember as Procedure;
       if (procedure.isStatic) {
         callExpression =
             StaticInvocation(aopItemInfo.aopMember as Procedure, redirectArguments);
       } else {
-        final Class aopItemMemberCls = aopItemInfo.aopMember.parent as Class;//获取到 SensorsAnalyticsAOP 这个 Class
+        final Class aopItemMemberCls = aopItemInfo.aopMember!.parent as Class;//获取到 SensorsAnalyticsAOP 这个 Class
         final ConstructorInvocation redirectConstructorInvocation =
             ConstructorInvocation.byReference(
                 aopItemMemberCls.constructors.first.reference,//SensorsAnalyticsAOP. 构造方法对应的 reference
@@ -244,7 +250,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
         callExpression = InstanceInvocation(
             InstanceAccessKind.Instance,
             redirectConstructorInvocation,
-            aopItemInfo.aopMember.name,
+            aopItemInfo.aopMember!.name,
             redirectArguments,
             interfaceTarget: aopItemInfo.aopMember as Procedure,
             functionType: AopUtils.computeFunctionTypeForFunctionNode((aopItemInfo.aopMember as Procedure).function, arguments));
@@ -254,7 +260,7 @@ class AspectdAopExecuteVisitor extends RecursiveVisitor<void> {
       }
     }
     return AopUtils.createProcedureBodyWithExpression(
-        callExpression, shouldReturn);
+        callExpression!, shouldReturn);
   }
 
   @override
