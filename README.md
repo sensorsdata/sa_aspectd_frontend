@@ -1,5 +1,5 @@
-![logo](https://opensource.sensorsdata.cn/wp-content/uploads/logo.png)
-<br><br>
+<img src="https://ow-file.sensorsdata.cn/www/home/header/sensors_header_icon.svg" width="200" >
+
 [![License](https://img.shields.io/github/license/sensorsdata/sa-sdk-android.svg)](https://github.com/sensorsdata/sa-sdk-android/blob/master/LICENSE)
 
 ## 神策简介
@@ -18,24 +18,13 @@ SensorsAnalytics SDK 是国内第一家开源商用版用户行为采集 SDK，�
 ## 集成文档
 请参考神策官网 [Flutter 全埋点 SDK 集成文档](https://manual.sensorsdata.cn/sa/latest/flutter-76841017.html)。
 
-## 讨论  
-| 扫码加入 Flutter 埋点专题讨论群|
-| ------ |
-![ 微信讨论群 ](https://user-images.githubusercontent.com/45255699/178633580-5be07468-3b7d-49c8-819d-6c36d0a1c379.png)|
-
-## 公众号  
-
-| 扫码关注<br>神策数据开源社区 | 扫码关注<br>神策数据开源社区服务号 |
-| ------ | ------ |
-|![ 微信订阅号 ](https://opensource.sensorsdata.cn/wp-content/uploads/ContentCommonPic_3.png) | ![ 微信服务号 ](https://opensource.sensorsdata.cn/wp-content/uploads/ContentCommonPic_4.png) |
-
 ## 感谢  
 - [AspectD](https://github.com/XianyuTech/aspectd) 
 
 
 ## License  
 
-Copyright 2015－2022 Sensors Data Inc.
+Copyright 2015－2024 Sensors Data Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
