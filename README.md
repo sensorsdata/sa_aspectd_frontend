@@ -23,9 +23,4 @@ SensorsAnalytics SDK 是国内第一家开源商用版用户行为采集 SDK，�
 
 
 ## License  
-
-Copyright 2015－2024 Sensors Data Inc.
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+[License 协议](https://github.com/sensorsdata/sa_aspectd_frontend/blob/master/LICENSE)
